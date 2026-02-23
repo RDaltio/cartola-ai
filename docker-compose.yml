@@ -1,0 +1,33 @@
+services:
+  # Nosso Banco de Dados Relacional
+  postgres:
+    image: postgres:15-alpine
+    container_name: cartola-db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - cartola-network
+
+  # Nosso Cache em Memória
+  redis:
+    image: redis:7-alpine
+    container_name: cartola-cache
+    ports:
+      - "6379:6379"
+    networks:
+      - cartola-network
+
+# Declaração dos Volumes (Persistência)
+volumes:
+  postgres_data:
+
+# Declaração da Rede Virtual (Comunicação)
+networks:
+  cartola-network:
+    driver: bridge
