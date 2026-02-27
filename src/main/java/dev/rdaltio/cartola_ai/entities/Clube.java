@@ -20,4 +20,5 @@ public class Clube {
     private String nome;
     private String abreviacao;
     private String escudoUrl;
+    private Integer externalId;
 }
